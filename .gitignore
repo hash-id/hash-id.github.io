@@ -5,3 +5,7 @@ Thumbs.db
 *.log
 node_modules/
 scratchpad/
+
+# Dokumentasi internal (jangan deploy publik)
+README.md
+assets/README.txt

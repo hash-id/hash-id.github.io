@@ -30,9 +30,8 @@
   });
 
   /* ---------- 2. WhatsApp links ----------
-     Semua [data-fill="wa-link"] pakai satu nomor (config.fills["wa-link"]).
-     Ditambah pesan pre-filled (config.waMessage) + tag kampanye supaya bizdev
-     tahu chat datang dari iklan mana. */
+     Semua [data-fill="wa-link"] pakai satu nomor (config.fills["wa-link"]),
+     ditambah pesan pre-filled (config.waMessage) + tag kampanye dari URL. */
   var fills = CFG.fills || {};
   var waBase = fills["wa-link"] || "";
   var waHref = waBase;
