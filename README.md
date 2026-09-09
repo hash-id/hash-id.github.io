@@ -41,12 +41,18 @@ punya isi sendiri.
 - Chart di section "Fitur utama" & hero adalah SVG inline (0 request tambahan).
 - Skill UI/UX terpasang di `.claude/skills/` (7 skill dari repo ui-ux-pro-max).
 
-## Cara publish ke GitHub Pages
+## Publish / update
 
-1. Buat repo baru, upload semua file di folder ini ke **root** repo.
-2. Repo → **Settings → Pages** → Source: `Deploy from a branch` → Branch: `main` / `/root`.
-3. Tunggu ~1 menit. URL: `https://<user>.github.io/<repo>/`.
-4. (Opsional) custom domain: isi di Settings → Pages, tambah file `CNAME`.
+Sudah live di **https://hash-id.github.io/** — repo `hash-id/hash-id.github.io`,
+GitHub Pages aktif (deploy from branch `main`, folder `/`).
+
+Update selanjutnya:
+```
+git add -A
+git commit -m "pesan perubahan"
+git push
+```
+GitHub Pages otomatis rebuild ~1 menit setelah push.
 
 ## Konversi ke WhatsApp
 
@@ -124,13 +130,13 @@ diset di `config.js` → `fills["wa-link"]` dan dipakai ulang di semua section l
 
 ## URL kampanye — 1 URL per angle
 
-Tiap angle sekarang halaman sendiri. Arahkan iklan Meta ke URL yang sesuai:
+Live di **https://hash-id.github.io/**. Arahkan iklan Meta ke URL yang sesuai:
 
 ```
-tumbuh-sistem : https://<user>.github.io/<repo>/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-tumbuh-sistem
-multichannel  : https://<user>.github.io/<repo>/landing-multichannel/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-multichannel
-cautionary    : https://<user>.github.io/<repo>/landing-cautionary/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-cautionary
-accounting    : https://<user>.github.io/<repo>/landing-accounting/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-accounting
+tumbuh-sistem : https://hash-id.github.io/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-tumbuh-sistem
+multichannel  : https://hash-id.github.io/landing-multichannel/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-multichannel
+cautionary    : https://hash-id.github.io/landing-cautionary/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-cautionary
+accounting    : https://hash-id.github.io/landing-accounting/?utm_source=meta&utm_medium=paid&utm_campaign=awareness-hashrt&utm_content=angle-accounting
 ```
 
 UTM tetap dibaca `script.js` → dikirim ke `dataLayer` (event `page_meta`) dan
