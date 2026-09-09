@@ -1,0 +1,7 @@
+# Tooling / local
+.claude/
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+scratchpad/
