@@ -101,14 +101,50 @@
     });
   }
 
-  /* ---------- 5. CTA click tracking ----------
-     Konversi utama = klik yang mengarah ke WhatsApp. */
-  $all("[data-cta]").forEach(function (el) {
-    el.addEventListener("click", function () {
-      var loc = el.getAttribute("data-cta");
-      var toWhatsApp = /wa\.me|whatsapp/i.test(el.getAttribute("href") || "");
-      track("cta_click", { location: loc, angle: ANGLE, to_whatsapp: toWhatsApp });
-      if (toWhatsApp) track("whatsapp_click", { location: loc, angle: ANGLE });
+  /* ---------- 5. Click tracking — SEMUA tombol & link ----------
+     Satu listener delegasi menangkap tiap <a>, <button>, dan <summary> di
+     halaman (termasuk yang ditambah belakangan). Tiap klik push "element_click"
+     ke dataLayer. Elemen ber-[data-cta] juga push "cta_click", dan yang menuju
+     WhatsApp push "whatsapp_click" (konversi utama).
+
+     Field di GTM:
+       event            : element_click | cta_click | whatsapp_click
+       element_type     : a | button | summary
+       element_label    : teks tombol / aria-label / data-cta
+       element_location : nilai data-cta, atau id/section terdekat
+       link_url         : href (kalau ada)
+       to_whatsapp      : true kalau menuju wa.me
+       angle            : angle halaman */
+  function sectionOf(node) {
+    for (var n = node; n && n !== document.body; n = n.parentElement) {
+      if (n.tagName === "SECTION" || n.tagName === "HEADER" || n.tagName === "FOOTER") {
+        return n.id || (n.className || "").split(" ")[0] || n.tagName.toLowerCase();
+      }
+    }
+    return "";
+  }
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest && e.target.closest("a, button, summary");
+    if (!el) return;
+
+    var cta = el.getAttribute("data-cta");
+    var href = el.getAttribute("href") || "";
+    var toWhatsApp = /wa\.me|whatsapp/i.test(href);
+    var label = cta
+      || (el.getAttribute("aria-label") || el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 60)
+      || (el.getAttribute("data-testi") ? "testi-" + el.getAttribute("data-testi") : "")
+      || "(tanpa label)";
+    var location = cta || sectionOf(el) || "unknown";
+
+    track("element_click", {
+      element_type: el.tagName.toLowerCase(),
+      element_label: label,
+      element_location: location,
+      link_url: href,
+      to_whatsapp: toWhatsApp,
+      angle: ANGLE
     });
-  });
+    if (cta) track("cta_click", { location: cta, angle: ANGLE, to_whatsapp: toWhatsApp });
+    if (toWhatsApp) track("whatsapp_click", { location: location, angle: ANGLE });
+  }, true);
 })();
