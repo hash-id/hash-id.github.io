@@ -14,5 +14,8 @@ window.HASHRT_CONFIG = {
 
   waMessage: "Halo HashRT, saya mau tanya soal audit pembukuan & Odoo Accounting untuk bisnis saya.",
 
+  // Label sumber — ikut otomatis di pesan WhatsApp, buat monitoring lead per halaman.
+  pageTag: "Landing Page: Accounting",
+
   // Tracking lewat GTM (GTM-NKPFBLZN, di <head>).
 };

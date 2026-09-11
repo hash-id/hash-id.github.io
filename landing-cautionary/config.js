@@ -19,5 +19,8 @@ window.HASHRT_CONFIG = {
 
   waMessage: "Halo HashRT, bisnis saya lagi ekspansi cepat dan saya mau pastikan sistem operasionalnya siap.",
 
+  // Label sumber — ikut otomatis di pesan WhatsApp, buat monitoring lead per halaman.
+  pageTag: "Landing Page: Cautionary",
+
   /* Tracking lewat GTM GTM-NKPFBLZN (terpasang di <head> index.html). */
 };

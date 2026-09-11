@@ -31,14 +31,21 @@
 
   /* ---------- 2. WhatsApp links ----------
      Semua [data-fill="wa-link"] pakai satu nomor (config.fills["wa-link"]),
-     ditambah pesan pre-filled (config.waMessage) + tag kampanye dari URL. */
+     ditambah pesan pre-filled (config.waMessage) + baris sumber. Baris sumber
+     SELALU ada (pakai config.pageTag) supaya tiap chat yang masuk kelihatan
+     asalnya dari landing page mana, bahkan kalau UTM iklan nggak ikut kebawa
+     (link di-share ulang, dibuka langsung, dll). Kalau UTM ada, ditambah juga
+     info kampanyenya. */
   var fills = CFG.fills || {};
   var waBase = fills["wa-link"] || "";
   var waHref = waBase;
   if (waBase) {
     var campaign = [p.get("utm_campaign"), p.get("utm_content")].filter(Boolean).join(" / ");
     var msg = CFG.waMessage || "";
-    if (campaign) msg += (msg ? "\n\n" : "") + "(dari iklan: " + campaign + ")";
+    var tag = [];
+    if (CFG.pageTag) tag.push(CFG.pageTag);
+    if (campaign) tag.push("iklan: " + campaign);
+    if (tag.length) msg += (msg ? "\n\n" : "") + "— " + tag.join(" • ");
     if (msg) waHref = waBase + (waBase.indexOf("?") === -1 ? "?" : "&") + "text=" + encodeURIComponent(msg);
   }
 

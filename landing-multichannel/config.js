@@ -19,5 +19,8 @@ window.HASHRT_CONFIG = {
 
   waMessage: "Halo HashRT, saya jualan di beberapa channel dan mau tanya soal nyatuin stok & pesanan pakai Odoo.",
 
+  // Label sumber — ikut otomatis di pesan WhatsApp, buat monitoring lead per halaman.
+  pageTag: "Landing Page: Multichannel",
+
   /* Tracking lewat GTM GTM-NKPFBLZN (terpasang di <head> index.html). */
 };

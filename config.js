@@ -17,6 +17,10 @@ window.HASHRT_CONFIG = {
 
   waMessage: "Halo HashRT, saya mau tanya soal kesiapan sistem / Odoo ERP untuk bisnis saya.",
 
+  // Label sumber — otomatis ikut di baris terakhir pesan WhatsApp, supaya tiap
+  // chat masuk kelihatan dari landing page mana (dipakai buat monitoring lead).
+  pageTag: "Landing Page: Tumbuh Sistem",
+
   // Tracking lewat GTM (GTM-NKPFBLZN, di <head>). Event: page_meta, view_section,
   // scroll_depth, cta_click, whatsapp_click.
 };
