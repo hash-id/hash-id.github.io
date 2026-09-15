@@ -108,10 +108,10 @@
      Satu listener delegasi menangkap tiap <a>, <button>, dan <summary> di
      halaman (termasuk yang ditambah belakangan). Tiap klik push "element_click"
      ke dataLayer. Elemen ber-[data-cta] juga push "cta_click", dan yang menuju
-     WhatsApp push "whatsapp_click" (konversi utama).
+     WhatsApp push "whatsapp_click" + "generate_lead" (konversi utama).
 
      Field di GTM:
-       event            : element_click | cta_click | whatsapp_click
+       event            : element_click | cta_click | whatsapp_click | generate_lead
        element_type     : a | button | summary
        element_label    : teks tombol / aria-label / data-cta
        element_location : nilai data-cta, atau id/section terdekat
@@ -148,6 +148,13 @@
       angle: ANGLE
     });
     if (cta) track("cta_click", { location: cta, angle: ANGLE, to_whatsapp: toWhatsApp });
-    if (toWhatsApp) track("whatsapp_click", { location: location, angle: ANGLE });
+    if (toWhatsApp) {
+      track("whatsapp_click", { location: location, angle: ANGLE });
+      // generate_lead = nama event standar. Template Meta Pixel di GTM otomatis
+      // memetakannya ke standard event "Lead" (dipakai Meta buat optimasi bidding
+      // & Aggregated Event Measurement di iOS). Di GA4 juga ini recommended event
+      // untuk lead. Pakai SALAH SATU saja sebagai conversion: generate_lead.
+      track("generate_lead", { location: location, angle: ANGLE, method: "whatsapp" });
+    }
   }, true);
 })();
