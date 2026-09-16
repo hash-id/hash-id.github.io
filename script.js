@@ -81,6 +81,48 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  /* ---------- 4b. Engaged view: 20 detik TERLIHAT di layar ----------
+     Meta PageView SENGAJA tetap fire saat load. Itu fondasi kesehatan pixel,
+     cookie matching, dan audiens retargeting "semua pengunjung" — jangan
+     ditunda. Untuk "page view berkualitas" dipakai event terpisah:
+     engaged_view, fire SEKALI setelah halaman terlihat di layar total 20 detik.
+
+     Pakai Page Visibility API: waktu saat tab disembunyikan, HP dikunci, atau
+     user pindah aplikasi TIDAK dihitung. Buka LP lalu tinggal 5 menit di tab
+     lain bukan engagement.
+
+     Di Meta: Events Manager -> Custom Conversions -> bikin dari event
+     engaged_view, lalu pakai sebagai tujuan optimasi ad set dan/atau sumber
+     Custom Audience. Di GA4 tinggal tandai engaged_view sebagai key event. */
+  var ENGAGE_MS = 20000;
+  var engagedSent = false, visibleSince = null, visibleTotal = 0, engageTimer = null;
+  function engageAccumulated() {
+    return visibleTotal + (visibleSince !== null ? Date.now() - visibleSince : 0);
+  }
+  function engageTick() {
+    if (engagedSent) return;
+    var acc = engageAccumulated();
+    if (acc >= ENGAGE_MS) {
+      engagedSent = true;
+      track("engaged_view", { engaged_seconds: ENGAGE_MS / 1000, angle: ANGLE });
+    } else if (visibleSince !== null) {
+      engageTimer = setTimeout(engageTick, ENGAGE_MS - acc); // timer bisa telat, jangan pernah lebih awal
+    }
+  }
+  function engageVisibility() {
+    if (engagedSent) return;
+    clearTimeout(engageTimer);
+    if (document.visibilityState === "visible") {
+      if (visibleSince === null) visibleSince = Date.now();
+      engageTimer = setTimeout(engageTick, Math.max(0, ENGAGE_MS - engageAccumulated()));
+    } else if (visibleSince !== null) {
+      visibleTotal += Date.now() - visibleSince;
+      visibleSince = null;
+    }
+  }
+  document.addEventListener("visibilitychange", engageVisibility);
+  engageVisibility();
+
   /* ---------- topbar solidify on scroll ---------- */
   var topbar = $(".topbar");
   if (topbar) {
