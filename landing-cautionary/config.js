@@ -13,7 +13,7 @@ window.HASHRT_CONFIG = {
     channels: "5+",
     industries: "6",
     "wa-link": "https://wa.me/62818422230",
-    "wa-hours": "· Sen–Jum 09.00–17.00 WIB",
+    "wa-hours": "· Chat 24 jam, kapan pun sempat",
     urgency: "Slot konsultasi gratis bulan ini terbatas",
   },
 
