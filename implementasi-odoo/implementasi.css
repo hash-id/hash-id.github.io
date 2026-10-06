@@ -351,3 +351,14 @@ section{padding:72px 0}
 @media (max-width:767px){.wa-float{width:56px;padding:0}}
 .wa-float.is-away{opacity:0;visibility:hidden;transform:translateY(12px)}
 .foot{padding-bottom:104px}
+
+/* strip logo klien (company profile 2025) */
+.trusted__list{gap:18px 36px}
+.trusted__list img{height:40px;width:auto;max-width:140px;object-fit:contain}
+.trusted__badge{padding-right:28px;border-right:1px solid var(--line)}
+@media (max-width:599px){.trusted__list{gap:16px 24px}.trusted__list img{height:32px;max-width:110px}.trusted__badge{border-right:0;padding-right:0;flex-basis:100%}}
+.testi blockquote{font-size:clamp(1rem,1.6vw,1.12rem)}
+.trusted__list{gap:16px 26px}
+.trusted__list img{height:36px;max-width:124px;mix-blend-mode:multiply}
+.trusted__list .logo--square img{height:54px}
+.trusted__badge{padding-right:22px}
