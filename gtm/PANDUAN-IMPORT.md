@@ -85,7 +85,7 @@ Import ulang: Admin → Import Container → Existing workspace → **Merge → 
 
 ## Patch Okt 2026: halaman `implementasi-odoo` (wa_click, view_paket, Meta Contact)
 
-Container live per 6 Okt 2026 = **versi 6** (import Sep). Versi itu belum punya tag
+Container live per 6 Okt 2026 = **versi 7** (patch ini sudah di-import & publish 6 Okt; sebelumnya versi 6 = import Sep). Versi itu belum punya tag
 untuk `wa_click`, padahal halaman `implementasi-odoo` sengaja **tidak** mengirim
 `generate_lead` (Lead campaign datang dari instant form). Selama patch ini belum
 di-publish, klik WA di halaman itu **tidak tercatat sebagai konversi** di Meta
@@ -128,3 +128,14 @@ Isi patch:
 
 Enhanced Measurement (scroll, outbound click) **sengaja tidak dimatikan**: property GA4
 `hash.id` dipakai juga oleh website utama.
+
+### Hasil publish versi 7 (6 Okt 2026)
+
+- Import Merge + Rename: 7 item ditambah, 0 diubah, 0 dihapus. Publish sebagai versi 7
+  "Patch implementasi-odoo: wa_click, view_paket, Meta Contact".
+- Uji live, 8 tombol WA: Meta `Contact` 8x (`content_name` = header, hero, paket_basic,
+  paket_pro_manufaktur, paket_pro_custom, cta_akhir, footer, floating), tanpa `Lead`.
+  GA4 Realtime: `wa_click` 8.
+- **Belum**: tandai `wa_click` sebagai key event di GA4. Event baru bisa diberi bintang
+  setelah muncul di Admin → Events → Recent events (biasanya < 24 jam).
+- Catatan uji: data uji memakai `utm_content=qa-test`; abaikan di report.
