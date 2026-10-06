@@ -7,7 +7,7 @@ window.HASHRT_CONFIG = {
     clients: "40+",
     "wa-link": "https://wa.me/62818422230",
     "wa-hours": "Pesan Anda dibalas dalam 24 jam",
-    urgency: "Maksimal 6 kickoff project per bulan", // "" = sembunyikan
+    urgency: "Kuota kickoff project terbatas", // "" = sembunyikan
 
     // Harga paket implementasi. "" = sembunyikan angka.
     "price-basic": "Rp 30 juta",
