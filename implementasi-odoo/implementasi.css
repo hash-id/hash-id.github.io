@@ -362,3 +362,29 @@ section{padding:72px 0}
 .trusted__list img{height:36px;max-width:124px;mix-blend-mode:multiply}
 .trusted__list .logo--square img{height:54px}
 .trusted__badge{padding-right:22px}
+
+/* strip logo klien berjalan otomatis (marquee) */
+.trusted__row{display:flex;align-items:center;gap:24px}
+.trusted__badge{flex:none;padding-right:24px;border-right:1px solid var(--line)}
+.trusted__badge img{height:36px;width:auto}
+.marquee{flex:1;min-width:0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee__track{display:flex;align-items:center;gap:44px;width:max-content;padding-right:44px;animation:marquee 60s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee__track li{flex:none}
+.marquee__track img{height:36px;width:auto;max-width:140px;object-fit:contain;mix-blend-mode:multiply}
+.marquee__track .logo--square img{height:54px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@media (max-width:599px){
+  .trusted__row{flex-direction:column;align-items:flex-start;gap:14px}
+  .trusted__badge{border-right:0;padding-right:0}
+  .marquee{width:100%}
+  .marquee__track{gap:32px;padding-right:32px;animation-duration:45s}
+  .marquee__track img{height:30px}
+  .marquee__track .logo--square img{height:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee__track{flex-wrap:wrap;width:auto;gap:16px 28px;animation:none}
+  .marquee__track li[aria-hidden]{display:none}
+}
