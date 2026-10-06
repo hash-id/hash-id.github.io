@@ -80,3 +80,51 @@ node gtm/build-gtm.js gtm/hashrt-gtm-container.json
 ```
 
 Import ulang: Admin → Import Container → Existing workspace → **Merge → Rename conflicting**.
+
+---
+
+## Patch Okt 2026: halaman `implementasi-odoo` (wa_click, view_paket, Meta Contact)
+
+Container live per 6 Okt 2026 = **versi 6** (import Sep). Versi itu belum punya tag
+untuk `wa_click`, padahal halaman `implementasi-odoo` sengaja **tidak** mengirim
+`generate_lead` (Lead campaign datang dari instant form). Selama patch ini belum
+di-publish, klik WA di halaman itu **tidak tercatat sebagai konversi** di Meta
+maupun GA4 (hanya `element_click`/`cta_click` di GA4).
+
+**Jangan import ulang `hashrt-gtm-container.json` penuh** — risiko tag GA4 dobel.
+Import file kecil `patch-implementasi-odoo.json` saja:
+
+1. GTM → Admin → Import Container → pilih `gtm/patch-implementasi-odoo.json`.
+2. Workspace: Existing (Default Workspace). Opsi: **Merge** → **Rename conflicting
+   tags, triggers, and variables** (jangan "Overwrite").
+3. Pastikan preview import: **3 tag baru, 2 trigger baru, 2 variable baru, 0 modified,
+   0 deleted**. Kalau ada "modified/deleted", batalkan.
+4. Preview → buka `https://promo.hash.id/implementasi-odoo/` → klik tiap tombol WA
+   (8 lokasi) → cek `GA4 - wa_click` dan `Meta - Contact (wa_click)` fire, dan
+   `button_location` benar.
+5. Submit → Publish.
+6. GA4 → Admin → Events → tandai `wa_click` sebagai **key event**.
+   (Saat ini key event di property hanya `purchase`; `generate_lead` juga belum ditandai.)
+
+Isi patch:
+
+| Item | Nama | Keterangan |
+|---|---|---|
+| Variable | `dlv - button_location`, `dlv - paket` | field dari `wa_click` |
+| Trigger | `CE - wa_click`, `CE - view_paket` | custom event |
+| Tag | `GA4 - wa_click` | param `button_location`, `paket` (+ `angle`, `site_type` via GTES) |
+| Tag | `GA4 - view_paket` | param `section` |
+| Tag | `Meta - Contact (wa_click)` | Custom HTML `fbq('track','Contact')`, `content_name` = `button_location`. fbq dimuat tag template Meta di DOM Ready. Tidak lewat CAPI (di luar cakupan brief). |
+
+## Audit tumpang tindih tracking (6 Okt 2026, halaman implementasi-odoo, live)
+
+| Area | Temuan | Status |
+|---|---|---|
+| Page view | GA4 `page_view` 1x (Google Tag di Initialization; tag GA4 bawaan Meta dipause). Meta `PageView` 1x (pixel 810992918692213). Pixel kedua 1093260756550533 tidak fire. | Aman, tidak dobel |
+| Klik WA → Meta | Tidak ada event (Lead dimatikan di halaman ini, Contact belum di-publish) | **Celah**: publish patch |
+| Klik WA → GA4 | Per klik: `element_click` + `cta_click` (+ `wa_click` setelah patch) + `click` outbound dari Enhanced Measurement | Tumpang tindih nama event, bukan dobel konversi. Jadikan **hanya `wa_click`** key event |
+| Scroll | `scroll_depth` 50/90 (script.js) + `scroll` 90% dari Enhanced Measurement | 90% tercatat 2x dengan nama berbeda. Pakai `scroll_depth` di report |
+| Lead Meta | Halaman ini tidak kirim Lead; 4 halaman promo lama masih kirim Lead dari klik WA | Lead campaign instant form tidak tercampur klik WA dari halaman ini |
+
+Enhanced Measurement (scroll, outbound click) **sengaja tidak dimatikan**: property GA4
+`hash.id` dipakai juga oleh website utama.
