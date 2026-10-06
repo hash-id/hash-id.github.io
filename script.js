@@ -37,18 +37,23 @@
      info kampanye. */
   var fills = CFG.fills || {};
   var waBase = fills["wa-link"] || "";
-  var waHref = waBase;
-  if (waBase) {
-    var campaign = [p.get("utm_campaign"), p.get("utm_content")].filter(Boolean).join(" / ");
-    var msg = CFG.waMessage || "";
+  var campaign = [p.get("utm_campaign"), p.get("utm_content")].filter(Boolean).join(" / ");
+  // encodeURIComponent tidak meng-encode ! ' ( ) * — di-encode juga supaya aman di semua app WA.
+  function enc(s) {
+    return encodeURIComponent(s).replace(/[!'()*]/g, function (c) { return "%" + c.charCodeAt(0).toString(16).toUpperCase(); });
+  }
+  // Tombol boleh punya teks sendiri lewat data-wa-text; kalau tidak, pakai waMessage halaman.
+  function waHrefFor(text) {
+    if (!waBase) return "";
+    var msg = text || CFG.waMessage || "";
     if (campaign) msg += (msg ? "\n\n" : "") + "(dari iklan: " + campaign + ")";
-    if (msg) waHref = waBase + (waBase.indexOf("?") === -1 ? "?" : "&") + "text=" + encodeURIComponent(msg);
+    return msg ? waBase + (waBase.indexOf("?") === -1 ? "?" : "&") + "text=" + enc(msg) : waBase;
   }
 
   /* ---------- 3. Fill placeholders from config ---------- */
   $all("[data-fill]").forEach(function (el) {
     var key = el.getAttribute("data-fill");
-    if (key === "wa-link") { if (waHref) el.setAttribute("href", waHref); return; }
+    if (key === "wa-link") { var h = waHrefFor(el.getAttribute("data-wa-text")); if (h) el.setAttribute("href", h); return; }
     if (Object.prototype.hasOwnProperty.call(fills, key) && typeof fills[key] === "string") {
       if (fills[key] === "") { el.style.display = "none"; }
       else if (el.children.length === 0) { el.textContent = fills[key]; }
@@ -65,10 +70,11 @@
   /* ---------- 4. Scroll-depth + section view ---------- */
   var depthHit = {}; var viewSent = false;
   var solution = $("#cara-kerja");
+  var marks = CFG.scrollMarks || [25, 50, 75, 100];
   function onScroll() {
     var h = document.documentElement;
     var pct = (h.scrollTop + window.innerHeight) / h.scrollHeight * 100;
-    [25, 50, 75, 100].forEach(function (m) {
+    marks.forEach(function (m) {
       if (pct >= m && !depthHit[m]) { depthHit[m] = true; track("scroll_depth", { percent_scrolled: m }); }
     });
     if (!viewSent && solution) {
@@ -80,6 +86,19 @@
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  /* Section ber-[data-view-event="nama_event"] push event itu SEKALI saat
+     masuk layar (mis. #paket -> view_paket). */
+  if ("IntersectionObserver" in window) {
+    var viewIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        viewIO.unobserve(en.target);
+        track(en.target.getAttribute("data-view-event"), { section: en.target.id || "", angle: ANGLE });
+      });
+    }, { threshold: 0.15 });
+    $all("[data-view-event]").forEach(function (el) { viewIO.observe(el); });
+  }
 
   /* ---------- 4b. Engaged view: 20 detik TERLIHAT di layar ----------
      Meta PageView SENGAJA tetap fire saat load. Itu fondasi kesehatan pixel,
@@ -129,6 +148,19 @@
     var syncBar = function () { topbar.classList.toggle("is-stuck", window.scrollY > 12); };
     window.addEventListener("scroll", syncBar, { passive: true });
     syncBar();
+  }
+
+  /* ---------- floating WhatsApp ----------
+     Disembunyikan sementara saat CTA WhatsApp lain (banner akhir, footer)
+     terlihat, supaya tidak menutupi tombol itu. */
+  var waFloat = $(".wa-float");
+  if (waFloat && "IntersectionObserver" in window) {
+    var waSeen = new Set();
+    var waIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) waSeen.add(en.target); else waSeen.delete(en.target); });
+      waFloat.classList.toggle("is-away", waSeen.size > 0);
+    });
+    $all(".cta__actions, .foot__contact .btn").forEach(function (el) { waIO.observe(el); });
   }
 
   /* ---------- testimonial slider ---------- */
@@ -193,7 +225,17 @@
        Guard 1,5 detik mencegah double-tap kehitung dua lead. */
     if (toWhatsApp && Date.now() - lastLeadAt > 1500) {
       lastLeadAt = Date.now();
-      track("generate_lead", { location: location, angle: ANGLE, method: "whatsapp" });
+      // wa_click (halaman dengan trackWaClick): button_location dari data-location,
+      // paket dari data-paket. Jadi GA4 wa_click + Meta Contact di GTM.
+      if (CFG.trackWaClick) {
+        track("wa_click", {
+          button_location: el.getAttribute("data-location") || location,
+          paket: el.getAttribute("data-paket") || "",
+          angle: ANGLE
+        });
+      }
+      // waLeadEvent: false = halaman ini tidak mengirim generate_lead (Meta Lead).
+      if (CFG.waLeadEvent !== false) track("generate_lead", { location: location, angle: ANGLE, method: "whatsapp" });
       track("whatsapp_click", { location: location, angle: ANGLE });
     }
 

@@ -6,8 +6,8 @@ window.HASHRT_CONFIG = {
   fills: {
     clients: "40+",
     "wa-link": "https://wa.me/62818422230",
-    "wa-hours": "· Chat 24 jam, kapan pun sempat",
-    urgency: "Slot konsultasi gratis bulan ini terbatas", // "" = sembunyikan
+    "wa-hours": "Pesan Anda dibalas dalam 24 jam",
+    urgency: "Maksimal 6 kickoff project per bulan", // "" = sembunyikan
 
     // Harga paket implementasi. "" = sembunyikan angka.
     "price-basic": "Rp 30 juta",
@@ -15,7 +15,12 @@ window.HASHRT_CONFIG = {
     "price-pro-custom": "Rp 60 juta",
   },
 
-  waMessage: "Halo HashRT, saya mau tanya soal paket implementasi Odoo untuk bisnis saya.",
+  // Cadangan kalau tombol WA tidak punya data-wa-text sendiri.
+  waMessage: "Halo HashRT, saya ingin konsultasi gratis tentang implementasi Odoo untuk bisnis saya.",
 
   // Tracking lewat GTM (GTM-NKPFBLZN, di <head>).
+  // Halaman ini: klik WA dikirim sebagai wa_click (GA4 wa_click + Meta Contact), tanpa generate_lead.
+  trackWaClick: true,
+  waLeadEvent: false,
+  scrollMarks: [50, 90],
 };

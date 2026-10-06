@@ -116,6 +116,8 @@ dlv("dlv - utm_medium", "utm_medium");
 dlv("dlv - utm_campaign", "utm_campaign");
 dlv("dlv - utm_content", "utm_content");
 dlv("dlv - page_path", "page_path");
+dlv("dlv - button_location", "button_location"); // wa_click (implementasi-odoo)
+dlv("dlv - paket", "paket");
 
 // angle cadangan dari path: dipakai saat page_view (fire sebelum page_meta di-push)
 regexTable("rt - angle from path", "{{Page Path}}", [
@@ -123,6 +125,7 @@ regexTable("rt - angle from path", "{{Page Path}}", [
   ["^/landing-multichannel/.*", "angle-multichannel"],
   ["^/landing-cautionary/.*", "angle-cautionary"],
   ["^/landing-accounting/.*", "angle-accounting"],
+  ["^/implementasi-odoo/.*", "angle-implementasi"],
 ], "website");
 
 customJs("js - angle", `function () {
@@ -152,7 +155,9 @@ customEvent("CE - scroll_depth", "scroll_depth");
 customEvent("CE - view_section", "view_section");
 customEvent("CE - engaged_view", "engaged_view");
 customEvent("CE - whatsapp_click", "whatsapp_click"); // disediakan, TIDAK dipakai tag (hindari dobel dgn generate_lead)
-customEvent("CE - page_meta", "page_meta");           // disediakan, TIDAK dipakai tag (metadata internal)
+customEvent("CE - page_meta", "page_meta");
+customEvent("CE - wa_click", "wa_click");           // klik WA per tombol (halaman dgn trackWaClick)
+customEvent("CE - view_paket", "view_paket");       // section #paket masuk layar           // disediakan, TIDAK dipakai tag (metadata internal)
 
 // ---------- TAGS: GA4 ----------
 tag({
@@ -196,6 +201,22 @@ ga4Event("GA4 - view_section", "view_section",
   [["section", "{{dlv - section}}"]], "view_section");
 ga4Event("GA4 - engaged_view", "engaged_view",
   [["engaged_seconds", "{{dlv - engaged_seconds}}"]], "engaged_view");
+ga4Event("GA4 - wa_click", "wa_click",
+  [["button_location", "{{dlv - button_location}}"], ["paket", "{{dlv - paket}}"]], "wa_click");
+ga4Event("GA4 - view_paket", "view_paket", [["section", "{{dlv - section}}"]], "view_paket");
+
+// Meta Contact untuk klik WA (wa_click). fbq sudah dimuat tag template Meta di DOM Ready.
+tag({
+  name: "Meta - Contact (wa_click)",
+  type: "html",
+  parameter: [
+    P("html", `<script>
+  if (window.fbq) fbq("track", "Contact", { content_name: {{dlv - button_location}}, content_category: {{js - angle}} });
+</script>`),
+    P("supportDocumentWrite", "false", "BOOLEAN"),
+  ],
+  firingTriggerId: [trigId["wa_click"]],
+});
 
 // Meta Pixel: TIDAK dibuat di sini. Container sudah punya tag template Meta
 // (FB_CONVERSIONS_API-...-Pixel_Template, opt-in CAPI). Cukup ganti trigger-nya

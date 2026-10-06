@@ -1,6 +1,6 @@
 {
   "exportFormatVersion": 2,
-  "exportTime": "2026-09-16 06:57:55",
+  "exportTime": "2026-10-06 05:22:38",
   "containerVersion": {
     "path": "accounts/6374821189/containers/263057276/versions/0",
     "accountId": "6374821189",
@@ -509,6 +509,160 @@
         "firingTriggerId": [
           "6"
         ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "8",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "name": "GA4 - wa_click",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "wa_click"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "{{const - GA4 Measurement ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventSettingsVariable",
+            "value": "{{GTES - common}}"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "button_location"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - button_location}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "paket"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - paket}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "9"
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "9",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "name": "GA4 - view_paket",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "view_paket"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "{{const - GA4 Measurement ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventSettingsVariable",
+            "value": "{{GTES - common}}"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "section"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - section}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "10"
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "10",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "name": "Meta - Contact (wa_click)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  if (window.fbq) fbq(\"track\", \"Contact\", { content_name: {{dlv - button_location}}, content_category: {{js - angle}} });\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "9"
+        ]
       }
     ],
     "trigger": [
@@ -699,6 +853,54 @@
                 "type": "TEMPLATE",
                 "key": "arg1",
                 "value": "page_meta"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "triggerId": "9",
+        "name": "CE - wa_click",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "wa_click"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "triggerId": "10",
+        "name": "CE - view_paket",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "view_paket"
               }
             ]
           }
@@ -1124,6 +1326,56 @@
         "accountId": "6374821189",
         "containerId": "263057276",
         "variableId": "18",
+        "name": "dlv - button_location",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "button_location"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "19",
+        "name": "dlv - paket",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "paket"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "20",
         "name": "rt - angle from path",
         "type": "remm",
         "parameter": [
@@ -1220,6 +1472,21 @@
                     "value": "angle-accounting"
                   }
                 ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "key",
+                    "value": "^/implementasi-odoo/.*"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "angle-implementasi"
+                  }
+                ]
               }
             ]
           }
@@ -1228,7 +1495,7 @@
       {
         "accountId": "6374821189",
         "containerId": "263057276",
-        "variableId": "19",
+        "variableId": "21",
         "name": "js - angle",
         "type": "jsm",
         "parameter": [
@@ -1242,7 +1509,7 @@
       {
         "accountId": "6374821189",
         "containerId": "263057276",
-        "variableId": "20",
+        "variableId": "22",
         "name": "js - is landing page",
         "type": "jsm",
         "parameter": [
@@ -1256,7 +1523,7 @@
       {
         "accountId": "6374821189",
         "containerId": "263057276",
-        "variableId": "21",
+        "variableId": "23",
         "name": "GTES - common",
         "type": "gtes",
         "parameter": [

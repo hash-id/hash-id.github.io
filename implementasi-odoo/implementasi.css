@@ -319,3 +319,35 @@ section{padding:72px 0}
 .foot__contact p{color:var(--ink-soft);font-size:.94rem;margin-bottom:18px}
 .foot__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-soft)}
 .foot__bottom img{height:32px;width:auto}
+
+/* ---------- revisi brief Okt 2026 ---------- */
+.btn--ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn--ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.hero__sub strong{color:#fff;font-weight:700}
+
+.plan__pick{font-size:.9rem;font-weight:600;color:var(--navy-700);background:var(--navy-100);border-radius:10px;padding:8px 12px}
+.plan--featured .plan__pick{color:#fff;background:rgba(255,255,255,.12)}
+
+/* accordion paket support (details/summary: keyboard & sentuh bawaan) */
+.svcpkg__summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  min-height:56px;padding:16px 22px;border:1px solid var(--line);border-radius:var(--r);background:var(--wash)}
+.svcpkg__summary::-webkit-details-marker{display:none}
+.svcpkg__summary h3{font-size:clamp(1.05rem,2vw,1.3rem)}
+.svcpkg__summary::after{content:"";flex:none;width:10px;height:10px;border-right:2px solid var(--navy-700);border-bottom:2px solid var(--navy-700);
+  transform:translateY(-30%) rotate(45deg);transition:transform .2s}
+.svcpkg[open] .svcpkg__summary::after{transform:translateY(20%) rotate(-135deg)}
+.svcpkg[open] .svcpkg__summary{margin-bottom:24px}
+.svcpkg{margin-top:56px}
+
+/* tombol WhatsApp mengambang */
+.wa-float{position:fixed;z-index:60;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:56px;height:56px;padding:0 16px;border-radius:999px;
+  background:#0f7d4b;color:#fff;text-decoration:none;font-weight:700;box-shadow:0 14px 30px -10px rgba(7,22,40,.55);
+  transition:transform .2s,opacity .2s,visibility .2s}
+.wa-float:hover{transform:translateY(-2px);background:#0c6a3f}
+.wa-float svg{width:28px;height:28px;fill:currentColor;flex:none}
+.wa-float__label{display:none}
+@media (min-width:768px){.wa-float{padding:0 22px 0 18px}.wa-float__label{display:inline}}
+@media (max-width:767px){.wa-float{width:56px;padding:0}}
+.wa-float.is-away{opacity:0;visibility:hidden;transform:translateY(12px)}
+.foot{padding-bottom:104px}
