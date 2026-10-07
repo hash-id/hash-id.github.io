@@ -478,3 +478,17 @@ section{padding:72px 0}
 /* label "Mulai dari" di atas harga paket */
 .plan__from{font-size:.8rem;font-weight:500;color:var(--ink-soft);margin-bottom:-12px;letter-spacing:.01em}
 .plan--featured .plan__from{color:#c3d1df}
+
+/* screenshot asli Odoo (bingkai jendela) */
+.shot{margin:0;border-radius:12px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.shot__bar{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;background:var(--wash);border-bottom:1px solid var(--line)}
+.shot__bar i{width:8px;height:8px;border-radius:50%;background:#d6dde5}
+.shot__bar i:first-child{background:#f0857d}.shot__bar i:nth-child(2){background:#f5c26b}.shot__bar i:nth-child(3){background:#7fd08a}
+.shot__bar span{margin-left:6px;font-size:.72rem;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot img{display:block;width:100%;height:auto}
+.tile .shot{margin-top:auto}
+.tile--map .shot{margin-top:0}
+.shot--hero{border:0;box-shadow:0 50px 90px -40px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.2)}
+@media (min-width:980px){.shot--hero{transform:rotateY(-14deg) rotateX(6deg) rotateZ(1deg);transform-origin:left center}}
+.phone__screen{padding:0;overflow:hidden;display:block}
+.phone__screen img{display:block;width:100%;height:auto}

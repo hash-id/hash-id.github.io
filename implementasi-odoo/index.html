@@ -87,38 +87,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="hero__note" data-fill="urgency">Kuota kickoff project terbatas</p>
       </div>
 
-      <!-- Mockup dashboard (ilustrasi, bukan data klien) -->
-      <div class="hero__visual" aria-hidden="true">
-        <div class="mock">
-          <div class="mock__side">
-            <span class="mock__logo">Odoo</span>
-            <span class="mock__item is-on">Ringkasan</span>
-            <span class="mock__item">Penjualan</span>
-            <span class="mock__item">Inventory</span>
-            <span class="mock__item">Pembelian</span>
-            <span class="mock__item">Akuntansi</span>
-          </div>
-          <div class="mock__main">
-            <div class="mock__head"><b>Ringkasan bulan ini</b><span class="mock__live">Live</span></div>
-            <div class="mock__kpis">
-              <div><small>Penjualan</small><b>Rp 682 jt</b></div>
-              <div><small>Order baru</small><b>1.284</b></div>
-              <div><small>Stok kritis</small><b>12 SKU</b></div>
-            </div>
-            <svg class="mock__chart" viewBox="0 0 240 70" preserveAspectRatio="none">
-              <defs><linearGradient id="mg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a5f86" stop-opacity=".35"/><stop offset="1" stop-color="#3a5f86" stop-opacity="0"/></linearGradient></defs>
-              <path d="M0,58 30,50 60,54 90,36 120,42 150,24 180,30 210,12 240,18 240,70 0,70Z" fill="url(#mg)"/>
-              <polyline points="0,58 30,50 60,54 90,36 120,42 150,24 180,30 210,12 240,18" fill="none" stroke="#3a5f86" stroke-width="2.5"/>
-            </svg>
-            <div class="mock__rows">
-              <div><i class="dot dot--ok"></i>SO/2026/0418 · Invoice terkirim</div>
-              <div><i class="dot dot--warn"></i>PO/2026/0092 · Menunggu approval</div>
-              <div><i class="dot dot--ok"></i>Transfer gudang Surabaya · Selesai</div>
-            </div>
-          </div>
-        </div>
-        <div class="float float--a"><small>Closing keuangan</small><b>1 hari</b></div>
-        <div class="float float--b"><small>Stok tersinkron</small><b>4 gudang</b></div>
+      <!-- Screenshot asli: demo Odoo 20 Enterprise (data contoh) -->
+      <div class="hero__visual">
+        <figure class="shot shot--hero">
+          <div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i><span>Odoo · CRM Pipeline</span></div>
+          <img src="../assets/odoo/hero-crm-pipeline.webp" alt="Pipeline CRM di Odoo 20 Enterprise dengan tahap Baru, Berkualifikasi, Proposisi, dan Berhasil" width="1330" height="574" fetchpriority="high" />
+        </figure>
+        <div class="float float--a" aria-hidden="true"><small>Closing keuangan</small><b>1 hari</b></div>
+        <div class="float float--b" aria-hidden="true"><small>Stok tersinkron</small><b>4 gudang</b></div>
       </div>
     </div>
   </section>
@@ -202,20 +178,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h3>Penjualan &amp; CRM</h3>
             <p>Penawaran, sales order, sampai invoice dalam satu alur. Pipeline tim sales kelihatan tanpa harus minta laporan.</p>
           </div>
-          <div class="pipe" aria-hidden="true">
-            <div class="pipe__col"><small>Prospek</small><span>PT Sinar Jaya</span><span>CV Makmur</span><span>Toko Rejeki</span></div>
-            <div class="pipe__col"><small>Penawaran</small><span>UD Sentosa</span><span>PT Lestari</span></div>
-            <div class="pipe__col"><small>Deal</small><span class="is-won">PT Abadi · Rp 48 jt</span></div>
-          </div>
+          <figure class="shot">
+            <div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i><span>Odoo · Penjualan</span></div>
+            <img src="../assets/odoo/sales-orders.webp" alt="Daftar Order Penjualan di Odoo dengan total Sales Revenue dan status faktur" width="1000" height="324" loading="lazy" />
+          </figure>
         </article>
 
         <article class="tile tile--map">
-          <div class="map" aria-hidden="true">
-            <span class="pin" style="--x:22%;--y:38%">Medan</span>
-            <span class="pin" style="--x:44%;--y:66%">Jakarta</span>
-            <span class="pin" style="--x:64%;--y:72%">Surabaya</span>
-            <span class="pin" style="--x:78%;--y:44%">Makassar</span>
-          </div>
+          <figure class="shot">
+            <div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i><span>Odoo · Inventaris</span></div>
+            <img src="../assets/odoo/inventory-overview.webp" alt="Gambaran Umum Inventaris di Odoo: penerimaan dan order pengiriman" width="1000" height="248" loading="lazy" />
+          </figure>
           <div class="tile__text">
             <h3>Inventory multi-gudang</h3>
             <p>Stok di tiap gudang sama dengan yang di sistem. Odoo kasih tanda sebelum barang habis.</p>
@@ -227,20 +200,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h3>Akuntansi otomatis</h3>
             <p>Tiap penjualan dan pembelian langsung jadi jurnal. Closing bulanan nggak perlu lembur.</p>
           </div>
-          <div class="flow" aria-hidden="true">
-            <span>Invoice dibuat</span>
-            <i></i>
-            <span>Jurnal &amp; piutang tercatat</span>
-            <i></i>
-            <span class="is-strong">Laba rugi ter-update</span>
-          </div>
+          <figure class="shot">
+            <div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i><span>Odoo · Akuntansi</span></div>
+            <img src="../assets/odoo/accounting-dashboard.webp" alt="Dashboard Akuntansi Odoo: faktur, pengeluaran, piutang, dan utang" width="1000" height="306" loading="lazy" />
+          </figure>
         </article>
 
         <article class="tile">
-          <div class="approve" aria-hidden="true">
-            <div><small>PO/2026/0092</small><b>Rp 27.400.000</b></div>
-            <span class="approve__btn">Setujui</span>
-          </div>
+          <figure class="shot">
+            <div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i><span>Odoo · Pembelian</span></div>
+            <img src="../assets/odoo/purchase-order.webp" alt="Form Permintaan Penawaran pembelian di Odoo dengan tombol Konfirmasi Order" width="1000" height="394" loading="lazy" />
+          </figure>
           <div class="tile__text">
             <h3>Pembelian &amp; approval</h3>
             <p>Permintaan barang, PO, dan tagihan vendor tercatat rapi, lengkap dengan alur persetujuan.</p>
@@ -252,19 +222,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h3>Pantau dari HP</h3>
             <p>Odoo jalan di browser dan aplikasi mobile. Cek omzet atau setujui PO dari mana saja.</p>
           </div>
-          <div class="phone" aria-hidden="true">
-            <div class="phone__screen">
-              <b>Omzet hari ini</b>
-              <span class="phone__big">Rp 23,6 jt</span>
-              <span class="phone__bar" style="--w:82%"></span>
-              <span class="phone__bar" style="--w:56%"></span>
-              <span class="phone__bar" style="--w:34%"></span>
-            </div>
+          <div class="phone">
+            <div class="phone__screen"><img src="../assets/odoo/mobile-sales.webp" alt="Order Penjualan dan Sales Revenue di Odoo versi mobile" width="420" height="210" loading="lazy" /></div>
           </div>
         </article>
       </div>
       <p class="swipe-hint" aria-hidden="true">Geser untuk melihat modul lain</p>
-      <p class="explore__note">Angka di atas ilustrasi tampilan, bukan data klien.</p>
+      <p class="explore__note">Tangkapan layar dari demo Odoo 20 Enterprise dengan data contoh, bukan data klien.</p>
     </div>
   </section>
 
