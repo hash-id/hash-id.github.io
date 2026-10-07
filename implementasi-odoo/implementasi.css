@@ -407,3 +407,70 @@ section{padding:72px 0}
 @media (max-width:979px){
   .hero__media::after{background:linear-gradient(180deg,rgba(7,22,40,.8) 0%,rgba(10,31,56,.72) 50%,rgba(14,44,79,.55) 100%)}
 }
+
+/* ===== ramah mobile (<640px) ===== */
+.swipe-hint{display:none}
+@media (max-width:639px){
+  section{padding:56px 0}
+  h2{font-size:1.55rem}
+  .chip{font-size:.82rem}
+  .btn--sm{min-height:44px}
+
+  /* hero: tanpa mockup, tombol penuh */
+  .hero{padding:100px 0 56px}
+  .hero__visual{display:none}
+  .hero__grid{gap:0}
+  .hero h1{font-size:clamp(2rem,8.6vw,2.4rem)}
+  .hero__actions{flex-direction:column;align-items:stretch}
+  .hero__actions .btn{width:100%}
+
+  /* layanan: baris ringkas */
+  .services__head{margin-bottom:32px}
+  .services__head .btn{width:100%}
+  .services__grid{gap:22px}
+  .svc{display:grid;grid-template-columns:52px 1fr;column-gap:16px;align-items:start}
+  .svc__icon{width:52px;height:52px;border-radius:15px;grid-row:span 2}
+  .svc__icon svg{width:26px;height:26px}
+  .svc h3{margin:2px 0 4px}
+
+  /* kartu geser (bento & paket) */
+  .bento,.plans{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -16px;padding:4px 16px 18px;scroll-padding:0 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .bento::-webkit-scrollbar,.plans::-webkit-scrollbar{display:none}
+  .bento>.tile,.plans>.plan{flex:0 0 86%;scroll-snap-align:start}
+  .plans{align-items:stretch}
+  .swipe-hint{display:flex;align-items:center;gap:6px;justify-content:center;font-size:.85rem;color:var(--ink-soft);margin:2px 0 0}
+  .swipe-hint::after{content:"\2192"}
+  .statement{margin-bottom:32px;font-size:1.4rem}
+
+  /* klien: angka 3 kolom */
+  .stats{grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;padding-top:24px}
+  .stats dt{font-size:1.8rem}
+  .stats dd{font-size:.8rem;margin-top:6px}
+  .testi{min-height:0}
+
+  /* cara kerja: nomor di kiri */
+  .steps h2{margin-bottom:28px}
+  .steps__list{gap:12px}
+  .steps__list li{display:grid;grid-template-columns:36px 1fr;column-gap:12px;padding:18px}
+  .steps__list span{grid-row:span 2;margin:2px 0 0}
+
+  /* tabel: kolom pertama menempel saat digeser */
+  .compare{margin-top:28px}
+  .compare table{min-width:560px;font-size:.88rem}
+  .compare th,.compare td{padding:12px}
+  .compare tbody th,.compare thead th:first-child{position:sticky;left:0;background:#fff;z-index:1;max-width:150px;box-shadow:1px 0 0 var(--line)}
+  .compare thead th:first-child{background:var(--wash)}
+  .svcpkg{margin-top:40px}
+
+  .pricing__head{margin-bottom:28px}
+  .faq__grid{gap:20px}
+  .cta__card{padding:44px 18px;border-radius:22px}
+  .cta__actions .btn{width:100%}
+  .foot{padding-top:48px}
+}
+@media (max-width:639px){
+  .foot__grid{gap:24px}
+  .foot__links{grid-template-columns:1fr 1fr;column-gap:16px}
+  .foot__bottom{margin-top:28px}
+}
