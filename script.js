@@ -150,6 +150,14 @@
     syncBar();
   }
 
+  /* ---------- video latar ----------
+     Dihentikan (tinggal poster) untuk pengguna reduced-motion atau mode hemat data. */
+  var conn = navigator.connection || {};
+  var stillOnly = (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) || conn.saveData;
+  $all("video[data-bg-video]").forEach(function (v) {
+    if (stillOnly) { v.removeAttribute("autoplay"); v.pause(); v.preload = "none"; }
+  });
+
   /* ---------- floating WhatsApp ----------
      Disembunyikan sementara saat CTA WhatsApp lain (banner akhir, footer)
      terlihat, supaya tidak menutupi tombol itu. */

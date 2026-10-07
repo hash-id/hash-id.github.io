@@ -388,3 +388,22 @@ section{padding:72px 0}
   .marquee__track{flex-wrap:wrap;width:auto;gap:16px 28px;animation:none}
   .marquee__track li[aria-hidden]{display:none}
 }
+
+/* video latar hero (Pexels #36328573) di bawah overlay navy */
+.hero__media{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero__video{width:100%;height:100%;object-fit:cover;opacity:.42}
+.hero__media::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(7,22,40,.94) 0%,rgba(10,31,56,.82) 42%,rgba(14,44,79,.55) 100%),
+    linear-gradient(180deg,rgba(7,22,40,.35) 0%,transparent 30%,rgba(7,22,40,.6) 100%)}
+.hero__grid{position:relative;z-index:1}
+@media (max-width:979px){
+  .hero__media::after{background:linear-gradient(180deg,rgba(7,22,40,.88) 0%,rgba(10,31,56,.8) 55%,rgba(14,44,79,.7) 100%)}
+}
+.hero__video{opacity:.6}
+.hero__media::after{background:
+    linear-gradient(90deg,rgba(7,22,40,.92) 0%,rgba(10,31,56,.74) 45%,rgba(14,44,79,.42) 100%),
+    linear-gradient(180deg,rgba(7,22,40,.3) 0%,transparent 30%,rgba(7,22,40,.55) 100%)}
+@media (max-width:979px){
+  .hero__media::after{background:linear-gradient(180deg,rgba(7,22,40,.8) 0%,rgba(10,31,56,.72) 50%,rgba(14,44,79,.55) 100%)}
+}
