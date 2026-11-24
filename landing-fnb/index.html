@@ -450,7 +450,7 @@ footer img{height:28px;width:auto}
 }
 </style>
 </head>
-<body>
+<body data-angle="angle-fnb">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKPFBLZN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -883,13 +883,19 @@ footer img{height:28px;width:auto}
   if(variant==='b')h1.innerHTML=h1.dataset.b;
   try{sessionStorage.setItem('hash_hl',variant)}catch(e){}
   dl.push({event:'headline_variant',variant:variant});
+  /* Sinkron dengan container GTM-NKPFBLZN v7 (lihat gtm/PANDUAN-IMPORT.md) */
+  dl.push({event:'page_meta',angle:'angle-fnb',utm_source:utm.utm_source||'',utm_medium:utm.utm_medium||'',utm_campaign:utm.utm_campaign||'',utm_content:utm.utm_content||'',page_path:location.pathname});
+  setTimeout(function(){dl.push({event:'engaged_view',engaged_seconds:20})},20000);
 
   /* ViewContent: 50% scroll atau 30 detik */
   var vc=false, sticky=document.getElementById('sticky');
   function fireVC(){if(vc)return;vc=true;dl.push({event:'ViewContent',utm_content:utm.utm_content||''})}
+  var sd={};function depth(m){if(sd[m])return;sd[m]=1;dl.push({event:'scroll_depth',percent_scrolled:m})}
   setTimeout(fireVC,30000);
   addEventListener('scroll',function(){
-    if((scrollY+innerHeight)/document.documentElement.scrollHeight>=.5)fireVC();
+    var pct=(scrollY+innerHeight)/document.documentElement.scrollHeight;
+    if(pct>=.5){fireVC();depth(50)}
+    if(pct>=.9)depth(90);
     sticky.classList.toggle('show',scrollY>520);
   },{passive:true});
 
@@ -943,7 +949,7 @@ footer img{height:28px;width:auto}
   }
   document.querySelectorAll('.js-wa').forEach(function(a){
     a.target='_blank';a.rel='noopener';a.href=waHref(a.dataset.paket);
-    a.addEventListener('click',function(){a.href=waHref(a.dataset.paket);dl.push({event:'Contact',button_location:a.dataset.loc,paket:a.dataset.paket||'',source_code:src})});
+    a.addEventListener('click',function(){a.href=waHref(a.dataset.paket);dl.push({event:'wa_click',button_location:a.dataset.loc,paket:a.dataset.paket||'',source_code:src})});
   });
 
   /* Sticky disembunyikan saat kuis/penutup terlihat */
