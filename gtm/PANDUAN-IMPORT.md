@@ -139,3 +139,43 @@ Enhanced Measurement (scroll, outbound click) **sengaja tidak dimatikan**: prope
 - **Belum**: tandai `wa_click` sebagai key event di GA4. Event baru bisa diberi bintang
   setelah muncul di Admin → Events → Recent events (biasanya < 24 jam).
 - Catatan uji: data uji memakai `utm_content=qa-test`; abaikan di report.
+
+---
+
+## Patch Nov 2026: halaman `landing-fnb` (kuis kualifikasi)
+
+`landing-fnb` sudah memakai event yang ada di versi 7 (`page_meta`, `wa_click`,
+`scroll_depth`, `engaged_view`). Klik WA di sana sudah jadi GA4 `wa_click` + Meta `Contact`
+(`content_name` = hero / kuis / sticky / penutup / harga / header). Yang belum punya tag
+hanya event kuis.
+
+**Jangan import ulang container penuh.** Import `patch-landing-fnb.json` saja:
+
+1. GTM → Admin → Import Container → pilih `gtm/patch-landing-fnb.json`.
+2. Workspace: Existing (Default Workspace). **Merge** → **Rename conflicting** (jangan Overwrite).
+3. Preview import harus: **4 tag baru, 2 trigger baru, 5 variable baru, 0 modified, 0 deleted**.
+   Kalau ada modified/deleted, batalkan.
+4. Preview → buka `https://promo.hash.id/landing-fnb/?utm_content=qa-test` → isi kuis sampai selesai.
+   Cek `GA4 - quiz_start`, `Meta - QuizStart` fire di jawaban pertama, dan
+   `GA4 - quiz_complete`, `Meta - QuizComplete` fire di jawaban ke-4 dengan nilai benar.
+5. Submit → Publish.
+
+Isi patch:
+
+| Item | Nama | Keterangan |
+|---|---|---|
+| Variable | `dlv - jumlah_outlet`, `dlv - kota`, `dlv - kendala`, `dlv - sistem`, `dlv - lead_tier` | field dari `QuizComplete` |
+| Trigger | `CE - QuizStart`, `CE - QuizComplete` | custom event (nama persis, huruf besar) |
+| Tag | `GA4 - quiz_start` | tanpa parameter tambahan (+ `angle`, `site_type` via GTES) |
+| Tag | `GA4 - quiz_complete` | param 5 field di atas |
+| Tag | `Meta - QuizStart` | Custom HTML `fbq('trackCustom','QuizStart')` |
+| Tag | `Meta - QuizComplete` | Custom HTML `fbq('trackCustom','QuizComplete', {...5 field, content_category})` |
+
+`lead_tier` dihitung di halaman sesuai brief: **Hot** = 3+ outlet di Surabaya/Sidoarjo/Gresik/Malang Raya,
+**Warm** = 3+ outlet di kota lain, **Dingin** = 1–2 outlet. Tidak ditampilkan ke pengunjung.
+
+Setelah publish:
+- GA4 → Custom definitions → event-scoped dimension `jumlah_outlet`, `kota`, `kendala`, `sistem`, `lead_tier`.
+- Meta → Custom Audience: "Website — event QuizComplete, 30 hari" dikurangi "event Contact, 30 hari"
+  (retargeting paling bernilai menurut brief). Bisa difilter `lead_tier = Hot`.
+- Regenerate kalau field berubah: `python gtm/build-patch-landing-fnb.py`.

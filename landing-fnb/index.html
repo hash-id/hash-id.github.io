@@ -919,7 +919,8 @@ footer img{height:28px;width:auto}
       if(!started){started=true;dl.push({event:'QuizStart'})}
       setTimeout(function(){
         if(cur===3){
-          dl.push({event:'QuizComplete',jumlah_outlet:ans.outlet,kota:ans.kota,kendala:ans.kendala,sistem:ans.sistem});
+          var tier=ans.outlet==='1-2 outlet'?'Dingin':(ans.kota==='Kota lain'?'Warm':'Hot');
+          dl.push({event:'QuizComplete',jumlah_outlet:ans.outlet,kota:ans.kota,kendala:ans.kendala,sistem:ans.sistem,lead_tier:tier});
           document.getElementById('q-summary').textContent=summary();
           show(4);
         }else show(cur+1);

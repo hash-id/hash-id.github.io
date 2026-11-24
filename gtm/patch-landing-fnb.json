@@ -1,0 +1,421 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-11-24 17:11:46",
+  "containerVersion": {
+    "path": "accounts/6374821189/containers/263057276/versions/0",
+    "accountId": "6374821189",
+    "containerId": "263057276",
+    "containerVersionId": "0",
+    "name": "Patch landing-fnb: QuizStart, QuizComplete (GA4 + Meta)",
+    "description": "Hanya item baru. Import Merge + Rename conflicting.",
+    "container": {
+      "path": "accounts/6374821189/containers/263057276",
+      "accountId": "6374821189",
+      "containerId": "263057276",
+      "name": "HashRT",
+      "publicId": "GTM-NKPFBLZN",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "0",
+      "tagIds": [
+        "GTM-NKPFBLZN"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "930",
+        "name": "GA4 - quiz_start",
+        "type": "gaawe",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "quiz_start"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "{{const - GA4 Measurement ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventSettingsVariable",
+            "value": "{{GTES - common}}"
+          }
+        ],
+        "firingTriggerId": [
+          "920"
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "931",
+        "name": "GA4 - quiz_complete",
+        "type": "gaawe",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "quiz_complete"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "{{const - GA4 Measurement ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventSettingsVariable",
+            "value": "{{GTES - common}}"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "jumlah_outlet"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - jumlah_outlet}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "kota"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - kota}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "kendala"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - kendala}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "sistem"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - sistem}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "lead_tier"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{dlv - lead_tier}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "921"
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "932",
+        "name": "Meta - QuizStart",
+        "type": "html",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  if (window.fbq) fbq(\"trackCustom\", \"QuizStart\", { content_category: {{js - angle}} });\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "920"
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "tagId": "933",
+        "name": "Meta - QuizComplete",
+        "type": "html",
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        },
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  if (window.fbq) fbq(\"trackCustom\", \"QuizComplete\", { jumlah_outlet: {{dlv - jumlah_outlet}}, kota: {{dlv - kota}}, kendala: {{dlv - kendala}}, sistem: {{dlv - sistem}}, lead_tier: {{dlv - lead_tier}}, content_category: {{js - angle}} });\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "921"
+        ]
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "triggerId": "920",
+        "name": "CE - QuizStart",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "QuizStart"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "triggerId": "921",
+        "name": "CE - QuizComplete",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "QuizComplete"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "910",
+        "name": "dlv - jumlah_outlet",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "jumlah_outlet"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "911",
+        "name": "dlv - kota",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "kota"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "912",
+        "name": "dlv - kendala",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "kendala"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "913",
+        "name": "dlv - sistem",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "sistem"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "variableId": "914",
+        "name": "dlv - lead_tier",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "lead_tier"
+          },
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          }
+        ],
+        "formatValue": {}
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6374821189",
+        "containerId": "263057276",
+        "type": "EVENT",
+        "name": "Event"
+      }
+    ],
+    "fingerprint": "0"
+  }
+}
